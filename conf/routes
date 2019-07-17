@@ -8,5 +8,8 @@ GET     /                           controllers.Application.index
 #Form page
 GET /form controllers.Application.form
 
+#List display page
+GET /list controllers.Application.list
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

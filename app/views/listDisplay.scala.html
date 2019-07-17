@@ -1,0 +1,15 @@
+@import scala.collection.mutable.ListBuffer
+@(listItems: ListBuffer[People])
+
+@import models.People;
+
+@main("List display") {
+    <h1>This is the list display page</h1>
+
+    <ul>
+    @for(p <- listItems) {
+        <li>@p.name @p.age</li>
+    }
+    </ul>
+
+}
