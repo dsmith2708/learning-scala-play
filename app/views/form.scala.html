@@ -1,9 +1,7 @@
-@(form: Form[CD])(implicit messages: Messages)
+@()(implicit flash: Flash)
 
 @main("Contact us form") {
     <h1>Contact us</h1>
-
-
-
+    <p>@flash.get("success").getOrElse("Hello")</p>
 
 }

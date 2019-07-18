@@ -1,0 +1,9 @@
+@(validated: Boolean)
+
+@main("Login Status") {
+    @if(validated) {
+        <h1>You have successfully logged in!</h1>
+    }   else {
+        <h1>Incorrect login credentials!</h1>
+    }
+}
