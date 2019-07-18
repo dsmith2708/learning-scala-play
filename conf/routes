@@ -6,7 +6,11 @@
 GET     /                           controllers.Application.index
 
 #Form page
-GET /form controllers.Application.form
+#GET /form controllers.Application.formFunction
+
+# Hello action
+#GET        /hello               controllers.Application.sayHello
+POST       /hello               controllers.Application.createCD()
 
 #List display page
 GET /list controllers.Application.list

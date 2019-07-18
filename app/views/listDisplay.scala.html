@@ -1,5 +1,5 @@
-@import scala.collection.mutable.ListBuffer
-@(listItems: ListBuffer[People])
+@import scala.collection.mutable.ArrayBuffer
+@(form: Form[CD], listItems: ArrayBuffer[CD], title: String)(implicit messages: Messages)
 
 @import models.People;
 
@@ -8,8 +8,16 @@
 
     <ul>
     @for(p <- listItems) {
-        <li>@p.name @p.age</li>
+        <li>@p.name @p.price</li>
     }
     </ul>
+
+    @helper.form(routes.Application.createCD()) {
+        @* an example of how we can pass additional arguments for the helper
+        in this CD example having '_showConstraints -> false will hide the requirement Required *@
+        @helper.inputText(form("name"), '_label -> "Name", '_showConstraints -> false)
+        @helper.inputText(form("price"), '_label -> "Price" , '_showConstraints -> false)
+        <button type="submit">Create CD</button>
+    }
 
 }
