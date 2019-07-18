@@ -8,22 +8,21 @@ import models.CD._
 
 class Application @Inject()(val messagesApi: MessagesApi, environment: play.api.Environment) extends Controller with I18nSupport {
 
-  var validated = false
-
-  def index = Action {
-    Ok(views.html.index("Your new application is ready.")).withSession(("user", "user@gmail.com")).flashing(("success", "page load successful"))
+  def index = Action { implicit request =>
+    Ok(views.html.index("Your new application is ready.", request.session.get("isLoggedIn").getOrElse("false").toBoolean)).withSession(("user", "user@gmail.com"))
   }
+
 //
   def formFunction = Action {implicit request =>
-    Ok(views.html.form()).flashing("success" -> "sdfgh")
+    Ok(views.html.form( request.session.get("isLoggedIn").getOrElse("false").toBoolean) )
   }
 
 
 
 
 //
-  def list = Action {
-    Ok(views.html.listDisplay(CD.createCDForm, CD.cds, "List view page"))
+  def list = Action { implicit request =>
+    Ok(views.html.listDisplay(CD.createCDForm, CD.cds, "List view page", request.session.get("isLoggedIn").getOrElse("false").toBoolean))
   }
 
 
@@ -31,7 +30,7 @@ class Application @Inject()(val messagesApi: MessagesApi, environment: play.api.
     val formValidationResult = CD.createCDForm.bindFromRequest
     formValidationResult.fold({ formWithErrors =>
       println(request.session.get("user").getOrElse("TitleNotFound"))
-      BadRequest(views.html.listDisplay(CD.createCDForm, CD.cds, request.session.get("user").getOrElse("TitleNotFound")))
+      BadRequest(views.html.listDisplay(CD.createCDForm, CD.cds, request.session.get("user").getOrElse("TitleNotFound"), request.session.get("isLoggedIn").getOrElse("false").toBoolean))
     }, { cd =>
       println(request.session.get("user").getOrElse("TitleNotFound"))
       CD.cds.append(cd)
@@ -41,6 +40,7 @@ class Application @Inject()(val messagesApi: MessagesApi, environment: play.api.
 
   def doLogin() = Action { implicit request =>
     val formValidationResult = LoginUserPass.createUserPassForm.bindFromRequest
+    var validated: Boolean = false
     formValidationResult.fold({ formWithErrors =>
       println(request.session.get("username").getOrElse("username not found"))
       println(request.session.get("password").getOrElse("password not found"))

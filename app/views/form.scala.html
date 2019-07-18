@@ -1,7 +1,10 @@
-@()(implicit flash: Flash)
+@(validated: Boolean)(implicit flash: Flash)
 
-@main("Contact us form") {
-    <h1>Contact us</h1>
-    <p>@flash.get("success").getOrElse("Hello")</p>
-
+@if(validated) {
+    @main("Contact us form", validated) {
+        <h1>Contact us</h1>
+        <p>@flash.get("success").getOrElse("Hello")</p>
+    }
+} else {
+    <p>not validated</p>
 }

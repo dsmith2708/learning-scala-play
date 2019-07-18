@@ -1,7 +1,11 @@
-@(message: String)
+@(message: String, validated: Boolean)
 
-@main("Welcome to Play") {
+@if(validated) {
+    @main("Welcome to Play", validated) {
 
-    @play20.welcome(message)
+        @play20.welcome(message)
 
+    }
+} else {
+    <p>not validated</p>
 }

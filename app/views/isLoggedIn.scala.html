@@ -1,6 +1,6 @@
 @(validated: Boolean)
 
-@main("Login Status") {
+@main("Login Status", validated) {
     @if(validated) {
         <h1>You have successfully logged in!</h1>
     }   else {
